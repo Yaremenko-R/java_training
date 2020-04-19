@@ -3,7 +3,27 @@ package ru.stqa.jt.sandbox;
 public class MyFirstProgramm {
 
   public static void main(String[] args) {
-    System.out.println("Hello, world1");
+    hello("world!");
+    hello("user");
+    hello("Alexei");
+
+    double l = 5;
+    System.out.printf("Площадь квалрата со стороной " + l + " = " + area(l));
+
+    double a = 4;
+    double b = 6;
+    System.out.printf("Площадь прямоугольника со сторонами " + a + " и " + b + " = " + area(a, b));
   }
 
+  public static void hello(String somebody) {
+    System.out.println("Hello, " + somebody + "!");
+  }
+
+  public static double area(double len) {
+    return len * len;
+  }
+
+  public static double area(double a, double b) {
+    return a * b;
+  }
 }
