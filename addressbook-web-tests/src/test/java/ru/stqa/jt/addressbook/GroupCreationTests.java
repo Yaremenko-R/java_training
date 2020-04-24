@@ -1,7 +1,6 @@
 package ru.stqa.jt.addressbook;
 
 import java.util.concurrent.TimeUnit;
-
 import org.testng.annotations.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
