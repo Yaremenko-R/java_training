@@ -3,26 +3,26 @@ package ru.stqa.jt.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class NavigationHelper {
+public class NavigationHelper extends HelperBase {
   private WebDriver wd;
 
   public NavigationHelper(WebDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   public void gotoGroupPage() {
-    wd.findElement(By.linkText("groups")).click();
+    click(By.linkText("groups"));
   }
 
   public void returnToGroupPage() {
-    wd.findElement(By.linkText("group page")).click();
+    click(By.linkText("group page"));
   }
 
   public void gotoHomePage() {
-    wd.findElement(By.linkText("home")).click();
+    click(By.linkText("home"));
   }
 
   public void gotoAddNewUserPage() {
-    wd.findElement(By.linkText("add new")).click();
+    click(By.linkText("add new"));
   }
 }
