@@ -9,7 +9,8 @@ public class UserDeletionTests extends TestBase {
     app.getNavigationHelper().gotoHomePage();
     app.getContactHelper().selectUser();
     app.getContactHelper().deleteSelectedUsers();
-    app.getContactHelper().wd.switchTo().alert().accept();
+    app.getContactHelper().deletionContactConfirmation();
+    app.getContactHelper().msgContactDeletionWait();
     app.getNavigationHelper().gotoHomePage();
    }
 }
