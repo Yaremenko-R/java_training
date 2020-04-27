@@ -11,6 +11,5 @@ public class UserCreationTests extends TestBase {
     app.getContactHelper().fillUserForm(new UserData("Doe", "USA", "322233", "John", "doe@mail.ru"));
     app.getContactHelper().submitContactCreation();
     app.getNavigationHelper().returnToHomePage();
-    app.getSessionHelper().logout();
   }
 }

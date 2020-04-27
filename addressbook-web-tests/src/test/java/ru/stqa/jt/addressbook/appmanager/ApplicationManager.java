@@ -1,5 +1,6 @@
 package ru.stqa.jt.addressbook.appmanager;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -15,7 +16,7 @@ public class ApplicationManager {
 
   public void init() {
     wd = new FirefoxDriver();
-    wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
@@ -25,6 +26,8 @@ public class ApplicationManager {
   }
 
   public void stop() {
+    wd.findElement(By.linkText("Logout")).click();
+    wd.findElement(By.name("user"));
     wd.quit();
   }
 

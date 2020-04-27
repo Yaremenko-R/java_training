@@ -12,8 +12,4 @@ public class SessionHelper extends HelperBase {
     type(By.name("pass"), password);
     click(By.cssSelector("input[type=\"submit\"]"));
   }
-
-  public void logout() {
-    click(By.linkText("Logout"));
-  }
 }
