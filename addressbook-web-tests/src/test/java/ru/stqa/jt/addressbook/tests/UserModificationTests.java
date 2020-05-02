@@ -9,7 +9,7 @@ public class UserModificationTests extends TestBase {
   public void testUserModification() {
     app.getNavigationHelper().gotoHomePage();
     app.getContactHelper().initGroupModification();
-    app.getContactHelper().fillUserForm(new UserData("Duck", "Texas", "322233", "Donald", "doe@mail.ru"));
+    app.getContactHelper().fillUserForm(new UserData("Duck", "Texas", "322233", "Donald", "doe@mail.ru", null), false);
     app.getContactHelper().submitContactModification();
     app.getNavigationHelper().returnToHomePage();
   }

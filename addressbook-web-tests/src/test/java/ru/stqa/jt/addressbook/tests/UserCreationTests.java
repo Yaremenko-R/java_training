@@ -8,7 +8,7 @@ public class UserCreationTests extends TestBase {
   @Test
   public void testUserCreation() {
     app.getNavigationHelper().gotoAddNewUserPage();
-    app.getContactHelper().fillUserForm(new UserData("Doe", "USA", "322233", "John", "doe@mail.ru"));
+    app.getContactHelper().fillUserForm(new UserData("Doe", "USA", "322233", "John", "doe@mail.ru", "g1"), true);
     app.getContactHelper().submitContactCreation();
     app.getNavigationHelper().returnToHomePage();
   }
