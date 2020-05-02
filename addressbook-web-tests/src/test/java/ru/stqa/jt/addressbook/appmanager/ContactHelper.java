@@ -54,4 +54,14 @@ public class ContactHelper extends HelperBase {
   public void deletionContactConfirmation() {
     wd.switchTo().alert().accept();
   }
+
+  public void createContact(UserData userData, boolean creation) {
+    click(By.linkText("add new"));
+    fillUserForm(userData, creation);
+    submitContactCreation();
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.name("selected[]"));
+  }
 }
