@@ -14,7 +14,7 @@ public class UserModificationTests extends TestBase {
       app.getContactHelper().createContact(new UserData("Lee", "USA", "322233", "Bruce", "lee@mail.ru", "g1"), true);
     }
     app.getNavigationHelper().gotoHomePage();
-    app.getContactHelper().initGroupModification();
+    app.getContactHelper().initContactModification(1);
     app.getContactHelper().fillUserForm(new UserData("Duck", "Texas", "322233", "Donald", "doe@mail.ru", null), false);
     app.getContactHelper().submitContactModification();
     app.getNavigationHelper().returnToHomePage();

@@ -14,7 +14,7 @@ public class UserDeletionTests extends TestBase {
       app.getContactHelper().createContact(new UserData("Lee", "USA", "322233", "Bruce", "lee@mail.ru", "g1"), true);
     }
     app.getNavigationHelper().gotoHomePage();
-    app.getContactHelper().selectUser();
+    app.getContactHelper().selectUser(before - 1);
     app.getContactHelper().deleteSelectedUsers();
     app.getContactHelper().deletionContactConfirmation();
     app.getContactHelper().msgContactDeletionWait();
