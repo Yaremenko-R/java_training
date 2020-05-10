@@ -3,7 +3,6 @@ package ru.stqa.jt.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.jt.addressbook.model.UserData;
-
 import java.util.List;
 
 public class UserDeletionTests extends TestBase {
@@ -23,5 +22,8 @@ public class UserDeletionTests extends TestBase {
     app.getNavigationHelper().gotoHomePage();
     List<UserData> after = app.getContactHelper().getContactList();
     Assert.assertEquals(after.size(), before.size() - 1);
+
+    before.remove(before.size() - 1);
+    Assert.assertEquals(before, after);
    }
 }
