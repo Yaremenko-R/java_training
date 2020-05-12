@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import ru.stqa.jt.addressbook.model.GroupData;
 import ru.stqa.jt.addressbook.model.UserData;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("email"), userData.getEmail());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+      new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
