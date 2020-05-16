@@ -79,7 +79,7 @@ public class UserData {
     return "UserData{" +
             "id=" + id +
             ", lastname='" + lastname + '\'' +
-            ", address='" + address + '\'' +
+            ", firstname='" + firstname + '\'' +
             '}';
   }
 
