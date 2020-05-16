@@ -14,7 +14,7 @@ public class UserCreationTests extends TestBase {
   public void ensurePreconditions() {
     app.goTo().groupPage();
     if (app.group().list().size() == 0) {
-      app.group().create(new GroupData("g9", "g9", "g9"));
+      app.group().create(new GroupData().withName("g9").withHeader("g9").withFooter("g9"));
     }
   }
 
