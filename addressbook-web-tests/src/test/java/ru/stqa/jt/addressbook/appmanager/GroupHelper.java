@@ -30,6 +30,7 @@ public class GroupHelper extends HelperBase {
 
   public void deleteSelectedGroups() {
     click(By.name("delete"));
+    returnToGroupPage();
   }
 
   public void selectGroup(int index) {
@@ -44,10 +45,23 @@ public class GroupHelper extends HelperBase {
     click(By.name("update"));
   }
 
+  public void returnToGroupPage() {
+    click(By.linkText("group page"));
+  }
+
   public void createGroup(GroupData groupData) {
     initGroupCreation();
     fillGroupForm(groupData);
     submitGroupCreation();
+    returnToGroupPage();
+  }
+
+  public void modifyGroup(int index, GroupData group) {
+    selectGroup(index);
+    initGroupModification();
+    fillGroupForm(group);
+    submitGroupModification();
+    returnToGroupPage();
   }
 
   public boolean isThereAGroup() {
