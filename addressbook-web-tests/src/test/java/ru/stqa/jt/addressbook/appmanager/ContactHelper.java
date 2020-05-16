@@ -58,10 +58,29 @@ public class ContactHelper extends HelperBase {
     wd.switchTo().alert().accept();
   }
 
+  public void returnToHomePage() {
+    click(By.linkText("home page"));
+  }
+
   public void createContact(UserData userData, boolean creation) {
     click(By.linkText("add new"));
     fillUserForm(userData, creation);
     submitContactCreation();
+    returnToHomePage();
+  }
+
+  public void modifyContact(int index, UserData contact) {
+    initContactModification(index);
+    fillUserForm((contact), false);
+    submitContactModification();
+    returnToHomePage();
+  }
+
+  public void deleteContact(int index) {
+    selectUser(index);
+    deleteSelectedUsers();
+    deletionContactConfirmation();
+    msgContactDeletionWait();
   }
 
   public boolean isThereAContact() {
