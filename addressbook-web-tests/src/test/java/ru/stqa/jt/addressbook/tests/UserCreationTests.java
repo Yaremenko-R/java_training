@@ -12,19 +12,19 @@ public class UserCreationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.getNavigationHelper().gotoGroupPage();
-    if (!app.getGroupHelper().isThereAGroup()) {
-      app.getGroupHelper().createGroup(new GroupData("g9", "g9", "g9"));
+    app.goTo().groupPage();
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupData("g9", "g9", "g9"));
     }
   }
 
   @Test
   public void testUserCreation() {
-    app.getNavigationHelper().gotoHomePage();
-    List<UserData> before = app.getContactHelper().getContactList();
+    app.goTo().homePage();
+    List<UserData> before = app.contact().list();
     UserData contact = new UserData("Doe", "USA", "322233", "John", "doe@mail.ru", null);
-    app.getContactHelper().createContact((contact), true);
-    List<UserData> after = app.getContactHelper().getContactList();
+    app.contact().create((contact), true);
+    List<UserData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
 
     before.add(contact);

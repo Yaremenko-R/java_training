@@ -12,24 +12,24 @@ public class UserModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.getNavigationHelper().gotoGroupPage();
-    if (!app.getGroupHelper().isThereAGroup()) {
-      app.getGroupHelper().createGroup(new GroupData("g9", "g9", "g9"));
+    app.goTo().groupPage();
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupData("g9", "g9", "g9"));
     }
-    app.getNavigationHelper().gotoHomePage();
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new UserData("Lee", "USA", "322233", "Bruce", "lee@mail.ru",null), true);
+    app.goTo().homePage();
+    if (app.contact().list().size() == 0) {
+      app.contact().create(new UserData("Lee", "USA", "322233", "Bruce", "lee@mail.ru",null), true);
     }
   }
 
   @Test
   public void testUserModification() {
-    app.getNavigationHelper().gotoHomePage();
-    List<UserData> before = app.getContactHelper().getContactList();
+    app.goTo().homePage();
+    List<UserData> before = app.contact().list();
     int index = 0;
     UserData contact = new UserData(before.get(index).getId(),"Duck", "Texas", "322233", "Donald", "doe@mail.ru", null);
-    app.getContactHelper().modifyContact(index, contact);
-    List<UserData> after = app.getContactHelper().getContactList();
+    app.contact().modify(index, contact);
+    List<UserData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
 
     before.remove(index);

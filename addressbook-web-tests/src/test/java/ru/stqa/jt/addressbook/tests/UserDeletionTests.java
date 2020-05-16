@@ -11,24 +11,24 @@ public class UserDeletionTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.getNavigationHelper().gotoGroupPage();
-    if (!app.getGroupHelper().isThereAGroup()) {
-      app.getGroupHelper().createGroup(new GroupData("g9", "g9", "g9"));
+    app.goTo().groupPage();
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupData("g9", "g9", "g9"));
     }
-    app.getNavigationHelper().gotoHomePage();
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new UserData("Lee", "USA", "322233", "Bruce", "lee@mail.ru",null), true);
+    app.goTo().homePage();
+    if (app.contact().list().size() == 0) {
+      app.contact().create(new UserData("Lee", "USA", "322233", "Bruce", "lee@mail.ru",null), true);
     }
   }
 
   @Test
   public void testUserDeletion() {
-    app.getNavigationHelper().gotoHomePage();
-    List<UserData> before = app.getContactHelper().getContactList();
+    app.goTo().homePage();
+    List<UserData> before = app.contact().list();
     int index = before.size() - 1;
-    app.getContactHelper().deleteContact(index);
-    app.getNavigationHelper().gotoHomePage();
-    List<UserData> after = app.getContactHelper().getContactList();
+    app.contact().delete(index);
+    app.goTo().homePage();
+    List<UserData> after = app.contact().list();
     Assert.assertEquals(after.size(), index);
 
     before.remove(index);
