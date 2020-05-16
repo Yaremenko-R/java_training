@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqa.jt.addressbook.model.GroupData;
 import ru.stqa.jt.addressbook.model.UserData;
+
 import java.util.ArrayList;
 import java.util.List;
 
