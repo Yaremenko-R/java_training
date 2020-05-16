@@ -17,7 +17,9 @@ public class UserDeletionTests extends TestBase {
     }
     app.goTo().homePage();
     if (app.contact().list().size() == 0) {
-      app.contact().create(new UserData("Lee", "USA", "322233", "Bruce", "lee@mail.ru",null), true);
+      app.contact().create(new UserData()
+              .withLastname("Lee").withAddress("USA").withHome("322233")
+              .withFirstname("Bruce").withEmail("lee@mail.ru"), true);
     }
   }
 

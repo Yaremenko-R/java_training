@@ -22,7 +22,9 @@ public class UserCreationTests extends TestBase {
   public void testUserCreation() {
     app.goTo().homePage();
     List<UserData> before = app.contact().list();
-    UserData contact = new UserData("Doe", "USA", "322233", "John", "doe@mail.ru", null);
+    UserData contact = new UserData()
+            .withLastname("Doe").withAddress("USA")
+            .withHome("322233").withFirstname("John").withEmail("doe@mail.ru");
     app.contact().create((contact), true);
     List<UserData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size() + 1);
