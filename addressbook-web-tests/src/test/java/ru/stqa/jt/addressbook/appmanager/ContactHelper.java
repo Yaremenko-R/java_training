@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.jt.addressbook.model.UserData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -34,16 +36,24 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-  public void selectUser(int index) {
+  public void selectByIndex(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  public void selectById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
   }
 
   public void deleteSelectedUsers() {
     click(By.xpath("//input[@value='Delete']"));
   }
 
-  public void initContactModification(int index) {
+  public void initContactModificationByIndex(int index) {
     wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+  }
+
+  public void initContactModificationById(int id) {
+    wd.findElement(By.cssSelector("a[href^=\"edit.php?id=" + id + "")).click();
   }
 
   public void submitContactModification() {
@@ -69,15 +79,29 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public void modify(int index, UserData contact) {
-    initContactModification(index);
+  public void modifyByIndex(int index, UserData contact) {
+    initContactModificationByIndex(index);
     fillUserForm((contact), false);
     submitContactModification();
     returnToHomePage();
   }
 
-  public void delete(int index) {
-    selectUser(index);
+  public void modifyById(UserData contact) {
+    initContactModificationById(contact.getId());
+    fillUserForm((contact), false);
+    submitContactModification();
+    returnToHomePage();
+  }
+
+  public void deleteByIndex(int index) {
+    selectByIndex(index);
+    deleteSelectedUsers();
+    deletionContactConfirmation();
+    msgContactDeletionWait();
+  }
+
+  public void deleteById(UserData contact) {
+    selectById(contact.getId());
     deleteSelectedUsers();
     deletionContactConfirmation();
     msgContactDeletionWait();
@@ -93,6 +117,20 @@ public class ContactHelper extends HelperBase {
 
   public List<UserData> list() {
     List<UserData> contacts = new ArrayList<UserData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements ) {
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+      int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+      String firstname = cells.get(2).getText();
+      String lastname = cells.get(1).getText();
+      UserData contact = new UserData().withId(id).withLastname(lastname).withFirstname(firstname);
+      contacts.add(contact);
+    }
+    return contacts;
+  }
+
+  public Set<UserData> all() {
+    Set<UserData> contacts = new HashSet<>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements ) {
       List<WebElement> cells = element.findElements(By.tagName("td"));

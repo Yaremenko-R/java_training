@@ -30,7 +30,7 @@ public class GroupHelper extends HelperBase {
     click(By.name("new"));
   }
 
-  public void select(int index) {
+  public void selectByIndex(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
@@ -66,7 +66,7 @@ public class GroupHelper extends HelperBase {
   }
 
   public void deleteByIndex(int index) {
-    select(index);
+    selectByIndex(index);
     click(By.name("delete"));
     returnToGroupPage();
   }
