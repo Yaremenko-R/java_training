@@ -34,8 +34,8 @@ public class UserModificationTests extends TestBase {
             .withId((modifiedContact.getId())).withLastname("Duck").withAddress("Texas")
             .withHome("322233").withFirstname("Donald").withEmail("doe@mail.ru");
     app.contact().modifyById(contact);
+    assertThat(app.contact().count(), equalTo(before.size()));
     Users after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
   }
 }
