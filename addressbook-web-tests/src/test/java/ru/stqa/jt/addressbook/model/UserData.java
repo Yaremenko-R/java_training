@@ -7,6 +7,8 @@ public class UserData {
   private String lastname;
   private String address;
   private String home;
+  private String mobile;
+  private String work;
   private String firstname;
   private String email;
   private String group;
@@ -28,6 +30,16 @@ public class UserData {
 
   public UserData withHome(String home) {
     this.home = home;
+    return this;
+  }
+
+  public UserData withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public UserData withWork(String work) {
+    this.work = work;
     return this;
   }
 
@@ -72,6 +84,14 @@ public class UserData {
 
   public String getGroup() {
     return group;
+  }
+
+  public String getMobile() {
+    return mobile;
+  }
+
+  public String getWork() {
+    return work;
   }
 
   @Override
