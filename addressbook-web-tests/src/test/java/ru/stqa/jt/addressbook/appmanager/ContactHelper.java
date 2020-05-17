@@ -6,11 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.jt.addressbook.model.UserData;
+import ru.stqa.jt.addressbook.model.Users;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -129,8 +128,8 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
-  public Set<UserData> all() {
-    Set<UserData> contacts = new HashSet<>();
+  public Users all() {
+    Users contacts = new Users();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements ) {
       List<WebElement> cells = element.findElements(By.tagName("td"));

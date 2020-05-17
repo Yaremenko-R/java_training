@@ -1,12 +1,13 @@
 package ru.stqa.jt.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.jt.addressbook.model.GroupData;
 import ru.stqa.jt.addressbook.model.UserData;
+import ru.stqa.jt.addressbook.model.Users;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserCreationTests extends TestBase {
 
@@ -21,16 +22,14 @@ public class UserCreationTests extends TestBase {
   @Test
   public void testUserCreation() {
     app.goTo().homePage();
-    Set<UserData> before = app.contact().all();
+    Users before = app.contact().all();
     UserData contact = new UserData()
             .withLastname("Doe").withAddress("USA")
             .withHome("322233").withFirstname("John").withEmail("doe@mail.ru");
     app.contact().create((contact), true);
-    Set<UserData> after = app.contact().all();
-    Assert.assertEquals(after.size(), before.size() + 1);
-
-    contact.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt());
-    before.add(contact);
-    Assert.assertEquals(before, after);
+    Users after = app.contact().all();
+    assertThat(after.size(), equalTo(before.size() + 1));
+    assertThat(after, equalTo(
+            before.withAdded(contact.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
   }
 }
