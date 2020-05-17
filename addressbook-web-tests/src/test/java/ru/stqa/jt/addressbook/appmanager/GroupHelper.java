@@ -7,9 +7,7 @@ import ru.stqa.jt.addressbook.model.GroupData;
 import ru.stqa.jt.addressbook.model.Groups;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -55,6 +53,7 @@ public class GroupHelper extends HelperBase {
     initGroupCreation();
     fillGroupForm(groupData);
     submitGroupCreation();
+    groupCache = null;
     returnToGroupPage();
   }
 
@@ -63,18 +62,21 @@ public class GroupHelper extends HelperBase {
     initGroupModification();
     fillGroupForm(group);
     submitGroupModification();
+    groupCache = null;
     returnToGroupPage();
   }
 
   public void deleteByIndex(int index) {
     selectByIndex(index);
     click(By.name("delete"));
+    groupCache = null;
     returnToGroupPage();
   }
 
   public void deleteById(GroupData group) {
     selectById(group.getId());
     click(By.name("delete"));
+    groupCache = null;
     returnToGroupPage();
   }
 
@@ -98,15 +100,20 @@ public class GroupHelper extends HelperBase {
     return groups;
   }
 
+  private Groups groupCache = null;
+
   public Groups all() {
-    Groups groups = new Groups();
+    if (groupCache != null) {
+      return new Groups(groupCache);
+    }
+    groupCache = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements ) {
       String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
       GroupData group = new GroupData().withId(id).withName(name);
-      groups.add(group);
+      groupCache.add(group);
     }
-    return groups;
+    return groupCache;
   }
 }

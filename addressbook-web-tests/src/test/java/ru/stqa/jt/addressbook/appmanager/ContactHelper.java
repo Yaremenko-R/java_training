@@ -75,6 +75,7 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("add new"));
     fillUserForm(userData, creation);
     submitContactCreation();
+    userCache = null;
     returnToHomePage();
   }
 
@@ -82,6 +83,7 @@ public class ContactHelper extends HelperBase {
     initContactModificationByIndex(index);
     fillUserForm((contact), false);
     submitContactModification();
+    userCache = null;
     returnToHomePage();
   }
 
@@ -89,6 +91,7 @@ public class ContactHelper extends HelperBase {
     initContactModificationById(contact.getId());
     fillUserForm((contact), false);
     submitContactModification();
+    userCache = null;
     returnToHomePage();
   }
 
@@ -97,6 +100,7 @@ public class ContactHelper extends HelperBase {
     deleteSelectedUsers();
     deletionContactConfirmation();
     msgContactDeletionWait();
+    userCache = null;
   }
 
   public void deleteById(UserData contact) {
@@ -104,6 +108,7 @@ public class ContactHelper extends HelperBase {
     deleteSelectedUsers();
     deletionContactConfirmation();
     msgContactDeletionWait();
+    userCache = null;
   }
 
   public boolean isThereAContact() {
@@ -128,8 +133,13 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
+  private Users userCache = null;
+
   public Users all() {
-    Users contacts = new Users();
+    if (userCache != null) {
+      return new Users(userCache);
+    }
+    userCache = new Users();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements ) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
@@ -137,8 +147,8 @@ public class ContactHelper extends HelperBase {
       String firstname = cells.get(2).getText();
       String lastname = cells.get(1).getText();
       UserData contact = new UserData().withId(id).withLastname(lastname).withFirstname(firstname);
-      contacts.add(contact);
+      userCache.add(contact);
     }
-    return contacts;
+    return userCache;
   }
 }
