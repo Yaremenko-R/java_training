@@ -11,8 +11,16 @@ public class UserData {
   private String work;
   private String firstname;
   private String email;
+  private String email2;
+  private String email3;
   private String group;
   private String allPhones;
+  private String allEmails;
+
+  public UserData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
 
   public UserData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
@@ -64,8 +72,26 @@ public class UserData {
     return this;
   }
 
+  public UserData withEmail2(String email2) {
+    this.email2 = email2;
+    return this;
+  }
+
+  public UserData withEmail3(String email3) {
+    this.email3 = email3;
+    return this;
+  }
+
   public int getId() {
     return id;
+  }
+
+  public String getEmail2() {
+    return email2;
+  }
+
+  public String getEmail3() {
+    return email3;
   }
 
   public String getLastname() {
@@ -102,6 +128,10 @@ public class UserData {
 
   public String getAllPhones() {
     return allPhones;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
   }
 
   @Override

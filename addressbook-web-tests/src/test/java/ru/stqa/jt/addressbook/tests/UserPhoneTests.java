@@ -34,6 +34,8 @@ public class UserPhoneTests extends TestBase{
     UserData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
     assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+    assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
+    assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
   }
 
   public String mergePhones(UserData contact) {
@@ -43,7 +45,14 @@ public class UserPhoneTests extends TestBase{
             .collect(Collectors.joining("\n"));
   }
 
-  public static String cleaned(String phone) {
-    return phone.replaceAll("\\s", "").replaceAll("[-()]","");
+  public String mergeEmails(UserData contact) {
+    return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+            .stream().filter((s)-> ! s.equals(""))
+            .map(UserPhoneTests::cleaned)
+            .collect(Collectors.joining("\n"));
+  }
+
+  public static String cleaned(String data) {
+    return data.replaceAll("\\s", "").replaceAll("[-()]","");
   }
 }
