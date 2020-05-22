@@ -14,3 +14,4 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 addressbook-web-tests/chromedriver.exe
 addressbook-web-tests/IEDriverServer.exe
+addressbook-web-tests/src/test/resources/sova.jpg
