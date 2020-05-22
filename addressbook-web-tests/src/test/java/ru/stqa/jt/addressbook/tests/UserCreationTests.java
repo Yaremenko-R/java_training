@@ -6,6 +6,8 @@ import ru.stqa.jt.addressbook.model.GroupData;
 import ru.stqa.jt.addressbook.model.UserData;
 import ru.stqa.jt.addressbook.model.Users;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -23,9 +25,10 @@ public class UserCreationTests extends TestBase {
   public void testUserCreation() {
     app.goTo().homePage();
     Users before = app.contact().all();
+    File photo = new File("src/test/resources/sova.jpg");
     UserData contact = new UserData()
             .withLastname("Doe").withAddress("USA")
-            .withHome("322233").withFirstname("John").withEmail("doe@mail.ru");
+            .withHome("322233").withFirstname("John").withEmail("doe@mail.ru").withPhoto(photo);
     app.contact().create((contact), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Users after = app.contact().all();

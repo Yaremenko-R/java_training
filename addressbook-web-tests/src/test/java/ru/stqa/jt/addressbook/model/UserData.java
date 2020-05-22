@@ -1,5 +1,6 @@
 package ru.stqa.jt.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class UserData {
@@ -16,6 +17,12 @@ public class UserData {
   private String group;
   private String allPhones;
   private String allEmails;
+  private File photo;
+
+  public UserData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
 
   public UserData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
@@ -84,6 +91,10 @@ public class UserData {
 
   public int getId() {
     return id;
+  }
+
+  public File getPhoto() {
+    return photo;
   }
 
   public String getEmail2() {
