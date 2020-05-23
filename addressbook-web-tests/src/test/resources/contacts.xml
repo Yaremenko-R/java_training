@@ -1,0 +1,26 @@
+<list>
+  <contact>
+    <lastname>lastname0</lastname>
+    <address>USA Texas 0</address>
+    <home>1-222-333-0</home>
+    <mobile>4 555 666 0</mobile>
+    <firstname>firstname0</firstname>
+    <email>email0@mail.ru</email>
+  </contact>
+  <contact>
+    <lastname>lastname1</lastname>
+    <address>USA Texas 1</address>
+    <home>1-222-333-1</home>
+    <mobile>4 555 666 1</mobile>
+    <firstname>firstname1</firstname>
+    <email>email1@mail.ru</email>
+  </contact>
+  <contact>
+    <lastname>lastname2</lastname>
+    <address>USA Texas 2</address>
+    <home>1-222-333-2</home>
+    <mobile>4 555 666 2</mobile>
+    <firstname>firstname2</firstname>
+    <email>email2@mail.ru</email>
+  </contact>
+</list>
