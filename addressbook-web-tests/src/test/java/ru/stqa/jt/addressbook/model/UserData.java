@@ -201,7 +201,10 @@ public class UserData {
     return "UserData{" +
             "id=" + id +
             ", lastname='" + lastname + '\'' +
+            ", address='" + address + '\'' +
+            ", home='" + home + '\'' +
             ", firstname='" + firstname + '\'' +
+            ", email='" + email + '\'' +
             '}';
   }
 
@@ -214,16 +217,12 @@ public class UserData {
             Objects.equals(lastname, userData.lastname) &&
             Objects.equals(address, userData.address) &&
             Objects.equals(home, userData.home) &&
-            Objects.equals(mobile, userData.mobile) &&
-            Objects.equals(work, userData.work) &&
             Objects.equals(firstname, userData.firstname) &&
-            Objects.equals(email, userData.email) &&
-            Objects.equals(email2, userData.email2) &&
-            Objects.equals(email3, userData.email3);
+            Objects.equals(email, userData.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, lastname, address, home, mobile, work, firstname, email, email2, email3);
+    return Objects.hash(id, lastname, address, home, firstname, email);
   }
 }
