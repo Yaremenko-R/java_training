@@ -67,12 +67,11 @@ public class UserData {
   @Transient
   private String allEmails;
 
-  @Column(name = "photo")
-  @Type(type = "text")
-  private String photo;
+  @Transient
+  private File photo;
 
   public UserData withPhoto(File photo) {
-    this.photo = photo.getPath();
+    this.photo = photo;
     return this;
   }
 
@@ -146,7 +145,7 @@ public class UserData {
   }
 
   public File getPhoto() {
-    return new File(photo);
+    return photo;
   }
 
   public String getEmail2() {
@@ -213,11 +212,18 @@ public class UserData {
     UserData userData = (UserData) o;
     return id == userData.id &&
             Objects.equals(lastname, userData.lastname) &&
-            Objects.equals(firstname, userData.firstname);
+            Objects.equals(address, userData.address) &&
+            Objects.equals(home, userData.home) &&
+            Objects.equals(mobile, userData.mobile) &&
+            Objects.equals(work, userData.work) &&
+            Objects.equals(firstname, userData.firstname) &&
+            Objects.equals(email, userData.email) &&
+            Objects.equals(email2, userData.email2) &&
+            Objects.equals(email3, userData.email3);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, lastname, firstname);
+    return Objects.hash(id, lastname, address, home, mobile, work, firstname, email, email2, email3);
   }
 }

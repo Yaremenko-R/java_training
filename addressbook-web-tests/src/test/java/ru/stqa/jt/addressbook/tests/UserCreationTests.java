@@ -57,8 +57,7 @@ public class UserCreationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().groupPage();
-    if (app.group().all().size() == 0) {
+    if (app.db().groups().size() == 0) {
       app.group().create(new GroupData().withName("g9").withHeader("g9").withFooter("g9"));
     }
   }
@@ -66,10 +65,10 @@ public class UserCreationTests extends TestBase {
   @Test(dataProvider = "validContactsFromJson")
   public void testUserCreation(UserData contact) {
     app.goTo().homePage();
-    Users before = app.contact().all();
+    Users before = app.db().users();
     app.contact().create((contact), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
-    Users after = app.contact().all();
+    Users after = app.db().users();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
