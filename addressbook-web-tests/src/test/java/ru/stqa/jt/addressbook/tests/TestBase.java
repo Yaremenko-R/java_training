@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeSuite;
 import ru.stqa.jt.addressbook.appmanager.ApplicationManager;
 import ru.stqa.jt.addressbook.model.GroupData;
 import ru.stqa.jt.addressbook.model.Groups;
+import ru.stqa.jt.addressbook.model.UserData;
+import ru.stqa.jt.addressbook.model.Users;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -37,12 +39,12 @@ public class TestBase {
   }
 
   @BeforeMethod
-  public  void logTestStart(Method m, Object[] p) {
+  public void logTestStart(Method m, Object[] p) {
     logger.info("Start test " + m.getName() + " with parameters " + Arrays.asList(p));
   }
 
   @AfterMethod(alwaysRun = true)
-  public  void logTestFinish(Method m, Object[] p) {
+  public void logTestFinish(Method m, Object[] p) {
     logger.info("Stop test " + m.getName() + " with parameters " + Arrays.asList(p));
   }
 
@@ -52,6 +54,18 @@ public class TestBase {
       Groups uiGroups = app.group().all();
       assertThat(uiGroups, equalTo(dbGroups.stream()
               .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
+  }
+
+  public void verifyContactListInUI() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Users dbContacts = app.db().users();
+      Users uiContacts = app.contact().all();
+      assertThat(uiContacts, equalTo(dbContacts.stream()
+              .map((c) -> new UserData().withId(c.getId())
+                      .withFirstname(c.getFirstname())
+                      .withLastname(c.getLastname()))
               .collect(Collectors.toSet())));
     }
   }

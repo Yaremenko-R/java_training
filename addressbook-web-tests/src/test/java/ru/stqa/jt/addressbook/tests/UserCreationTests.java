@@ -71,5 +71,6 @@ public class UserCreationTests extends TestBase {
     Users after = app.db().users();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    verifyContactListInUI();
   }
 }
