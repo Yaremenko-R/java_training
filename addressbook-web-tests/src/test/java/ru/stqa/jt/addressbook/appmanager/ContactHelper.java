@@ -26,7 +26,11 @@ public class ContactHelper extends HelperBase {
     attach(By.name("photo"), userData.getPhoto());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
+      if (new UserData().getGroups().size() > 0) {
+        Assert.assertTrue(userData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group")))
+                .selectByVisibleText(UserData.getGroups().iterator().next().getName());
+      }
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -124,7 +128,7 @@ public class ContactHelper extends HelperBase {
   public List<UserData> list() {
     List<UserData> contacts = new ArrayList<UserData>();
     List<WebElement> elements = wd.findElements(By.name("entry"));
-    for (WebElement element : elements ) {
+    for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       String firstname = cells.get(2).getText();
@@ -143,7 +147,7 @@ public class ContactHelper extends HelperBase {
     }
     userCache = new Users();
     List<WebElement> elements = wd.findElements(By.name("entry"));
-    for (WebElement element : elements ) {
+    for (WebElement element : elements) {
       List<WebElement> cells = element.findElements(By.tagName("td"));
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       String firstname = cells.get(2).getText();
