@@ -7,7 +7,7 @@ import ru.stqa.jt.addressbook.model.Groups;
 import ru.stqa.jt.addressbook.model.UserData;
 import ru.stqa.jt.addressbook.model.Users;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserAddToGroupTests extends TestBase {
@@ -29,11 +29,12 @@ public class UserAddToGroupTests extends TestBase {
     app.goTo().homePage();
     Users uBefore = app.db().users();
     Groups gBefore = app.db().groups();
-    UserData contact = new UserData().inGroup(gBefore.iterator().next());
-    assertThat(app.contact().count(), equalTo(uBefore.size() + 1));
-    Users uAfter = app.db().users();
-    assertThat(uAfter, equalTo(
-            uBefore.withAdded(contact.withId(uAfter.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-    verifyContactListInUI();
+    GroupData group = gBefore.iterator().next();
+    UserData contactToAdd = uBefore.iterator().next();
+    if (contactToAdd.getGroups().contains(group)) {
+      contactToAdd = uBefore.iterator().next();
+    }
+    app.contact().addToGroup(contactToAdd, group);
+    assertThat(contactToAdd.getGroups(), hasItem(group));
   }
 }
