@@ -63,7 +63,7 @@ public class UserData {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "address_in_groups",
           joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-  private static Set<GroupData> groups = new HashSet<GroupData>();
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   @Transient
   private String allPhones;
@@ -74,7 +74,7 @@ public class UserData {
   @Transient
   private File photo;
 
-  public static Groups getGroups() {
+  public Groups getGroups() {
     return new Groups(groups);
   }
 

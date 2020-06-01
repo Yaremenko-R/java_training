@@ -35,8 +35,11 @@ public class HbConnectionTest {
     session.beginTransaction();
     List<UserData> result = session.createQuery("from UserData where deprecated = '0000-00-00 00:00:00'").list();
     for (UserData contact : result) {
-      System.out.println(contact);
       System.out.println(contact.getGroups());
+    }
+    List<GroupData> gresult = session.createQuery("from GroupData").list();
+    for (GroupData group : gresult) {
+      System.out.println(group.getContacts());
     }
     session.getTransaction().commit();
     session.close();
