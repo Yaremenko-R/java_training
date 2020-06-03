@@ -13,6 +13,8 @@
         <classes>
             <class name="ru.stqa.jt.addressbook.tests.UserCreationTests" />
             <class name="ru.stqa.jt.addressbook.tests.UserModificationTests" />
+            <class name="ru.stqa.jt.addressbook.tests.UserAddToGroupTests" />
+            <class name="ru.stqa.jt.addressbook.tests.UserDeletionFromGroupTests" />
             <class name="ru.stqa.jt.addressbook.tests.UserPhoneTests" />
             <class name="ru.stqa.jt.addressbook.tests.UserDeletionTests" />
         </classes>
