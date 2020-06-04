@@ -26,16 +26,41 @@ public class UserDeletionFromGroupTests extends TestBase {
 
   @Test
   public void testUserDeletionFromGroup() {
-    app.goTo().homePage();
-    Users uBefore = app.db().users();
-    Groups gBefore = app.db().groups();
-    GroupData group = gBefore.iterator().next();
-    UserData contactToDel = uBefore.iterator().next();
-    if (!contactToDel.getGroups().contains(group)) {
-      app.contact().addToGroup(contactToDel, group);
-      app.goTo().homePage();
+    Users contactsBefore = app.db().users();
+    Groups groupsBefore = app.db().groups();
+    GroupData targetGroupRand = groupsBefore.iterator().next();
+    UserData contactToDelRand = contactsBefore.iterator().next();
+    UserData contactToDel = null;
+    GroupData targetGroup = null;
+
+    for (UserData contact : contactsBefore) {
+      Groups contactGroups = contact.getGroups();
+      if (contactGroups.size() > 0) {
+        contactToDel = contact;
+        targetGroup = contactToDel.getGroups().iterator().next();
+        break;
+      } else {
+        app.goTo().homePage();
+        app.contact().addToGroup(contactToDelRand, targetGroupRand);
+      }
     }
-    app.contact().deleteFromGroup(contactToDel, group);
-    assertThat(contactToDel.getGroups(), not(group));
+
+    for (UserData contact : contactsBefore) {
+      Groups contactGroups = contact.getGroups();
+
+      for (GroupData group : groupsBefore) {
+        if (contactGroups.contains(group)) {
+          targetGroup = group;
+          contactToDel = contact;
+          break;
+        }
+      }
+    }
+
+    app.goTo().homePage();
+    app.contact().deleteFromGroup(contactToDel, targetGroup);
+    Groups contactGroupsAfterDel = contactToDel.getGroups();
+    assertThat(contactGroupsAfterDel, not(targetGroup));
   }
 }
+
