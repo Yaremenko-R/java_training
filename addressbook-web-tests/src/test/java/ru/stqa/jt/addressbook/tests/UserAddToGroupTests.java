@@ -1,6 +1,5 @@
 package ru.stqa.jt.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.jt.addressbook.model.GroupData;
@@ -29,25 +28,24 @@ public class UserAddToGroupTests extends TestBase {
   public void testUserAddToGroup() {
     Users contactsBefore = app.db().users();
     Groups groupsBefore = app.db().groups();
-    GroupData targetGroup = groupsBefore.iterator().next();
-    UserData contactToAdd = contactsBefore.iterator().next();
-    Groups contactGroupsBeforeAdd = contactToAdd.getGroups();
+    GroupData targetGroup = null;
+    UserData contactToAdd = null;
 
-    if (contactGroupsBeforeAdd.size() == 0) {
-      app.goTo().homePage();
-      app.contact().addToGroup(contactToAdd, targetGroup);
-    } else if (contactGroupsBeforeAdd.contains(targetGroup)) {
-      for (UserData contact : contactsBefore) {
-        Groups contactGroups = contact.getGroups();
-        if (!contactGroups.contains(targetGroup)) {
+    for (UserData contact : contactsBefore) {
+      Groups contactGroups = contact.getGroups();
+
+      for (GroupData group : groupsBefore) {
+        if (!contactGroups.contains(group)) {
+          targetGroup = group;
           contactToAdd = contact;
           break;
+        } else {
+          app.goTo().groupPage();
+          targetGroup = new GroupData().withName("g9").withHeader("g9").withFooter("g9");
+          app.group().create(targetGroup);
+          contactToAdd = contactsBefore.iterator().next();
         }
       }
-    } else {
-      app.goTo().groupPage();
-      targetGroup = new GroupData().withName("g9").withHeader("g9").withFooter("g9");
-      app.group().create(targetGroup);
     }
     app.goTo().homePage();
     app.contact().addToGroup(contactToAdd, targetGroup);
