@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class RegistrationTests extends TestBase {
+public class RegistrationTestsLocal extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> validUsers() {
