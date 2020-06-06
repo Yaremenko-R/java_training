@@ -36,10 +36,10 @@ public class JamesHelper {
     return result.trim().equals("User " + name + " exist");
   }
 
-  public void createUser(String name, String passwd) {
+  public void createUser(String user, String password) {
     initTelnetSession();
-    write("adduser " + name + " " + passwd);
-    String result = readUntil("User " + name + " added");
+    write("adduser " + user + " " + password);
+    String result = readUntil("User " + user + " added");
     closeTelnetSession();
   }
 
@@ -66,14 +66,14 @@ public class JamesHelper {
     }
 
     readUntil("Login id:");
-    write("");
+    write(login);
     readUntil("Password:");
-    write("");
+    write(password);
 
     readUntil("Login id:");
-    write("");
+    write(login);
     readUntil("Password:");
-    write("");
+    write(password);
 
     readUntil("Welcome " + login + ". HELP for a list of commands");
   }
