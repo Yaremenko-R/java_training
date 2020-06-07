@@ -20,14 +20,14 @@ public class RegistrationTestsRemote extends TestBase{
     List<Object[]> list = new ArrayList<>();
     long now = System.currentTimeMillis();
     String user = String.format("user%s", now);
-    String password = "password";
-    String email = String.format("user%s@localhost.localdomain", now);
+    String password = "pass";
+    String email = String.format("%s@localhost.localdomain", user);
     list.add(new Object[] {user, password, email});
     return list.iterator();
   }
 
   @Test(dataProvider = "validUsers")
-  public void testRegistration(String user, String password, String email) throws IOException, MessagingException {
+  public void testRegistrationRemote(String user, String password, String email) throws IOException, MessagingException {
     app.james().createUser(user, password);
     app.registration().start(user, email);
     List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
