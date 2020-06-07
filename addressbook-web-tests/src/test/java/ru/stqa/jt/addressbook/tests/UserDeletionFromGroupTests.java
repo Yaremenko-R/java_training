@@ -1,6 +1,5 @@
 package ru.stqa.jt.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.jt.addressbook.model.GroupData;
@@ -9,6 +8,8 @@ import ru.stqa.jt.addressbook.model.UserData;
 import ru.stqa.jt.addressbook.model.Users;
 
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UserDeletionFromGroupTests extends TestBase {
 
@@ -59,7 +60,6 @@ public class UserDeletionFromGroupTests extends TestBase {
     app.goTo().homePage();
     app.contact().deleteFromGroup(contactToDel, targetGroup);
     Groups contactGroupsAfterDel = contactToDel.getGroups();
-    Assert.assertNotEquals(contactGroupsAfterDel, hasItem(targetGroup));
+    assertThat(contactGroupsAfterDel, not(hasItem(targetGroup)));
   }
 }
-
