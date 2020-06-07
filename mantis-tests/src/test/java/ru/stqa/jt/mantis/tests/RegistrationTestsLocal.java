@@ -33,7 +33,7 @@ public class RegistrationTestsLocal extends TestBase {
   }
 
   @Test(dataProvider = "validUsers")
-  public void testRegistration(String user, String password, String email) throws IOException, MessagingException {
+  public void testRegistrationLocal(String user, String password, String email) throws IOException, MessagingException {
     app.registration().start(user, email);
     List<MailMessage> mailMessages = app.mail().waitForMail(2,10000);
     String confirmationLink = app.mail().findConfirmationLink(mailMessages, email);
