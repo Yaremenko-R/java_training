@@ -30,6 +30,7 @@ public class ApplicationManager {
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    dbHelper = new DbHelper();
   }
 
   public void stop() {
@@ -74,13 +75,6 @@ public class ApplicationManager {
     return jamesHelper;
   }
 
-  public DbHelper db() {
-    if (dbHelper == null) {
-      dbHelper = new DbHelper(this);
-    }
-    return dbHelper;
-  }
-
   public WebDriver getDriver() {
     if (wd == null) {
       if (browser.equals(BrowserType.FIREFOX)) {
@@ -93,5 +87,9 @@ public class ApplicationManager {
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
+  }
+
+  public DbHelper db() {
+    return dbHelper;
   }
 }
