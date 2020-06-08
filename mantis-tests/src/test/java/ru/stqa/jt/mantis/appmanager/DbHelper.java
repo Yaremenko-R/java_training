@@ -1,44 +1,32 @@
 package ru.stqa.jt.mantis.appmanager;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.stqa.jt.mantis.model.UserData;
 import ru.stqa.jt.mantis.model.Users;
 
-import java.sql.*;
+import java.util.List;
 
 
 public class DbHelper {
-  private ApplicationManager app;
+  public final SessionFactory sessionFactory;
 
-  public DbHelper(ApplicationManager app) {
-    this.app = app;
+  public DbHelper() {
+    final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+            .configure()
+            .build();
+    sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
   }
 
-  public Users mantisUsers() {
-
-    Connection conn = null;
-    Users users = null;
-
-    try {
-      conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bugtracker?user=root&password=");
-      Statement st = conn.createStatement();
-      ResultSet rs = st.executeQuery("select id, username, email from mantis_user_table");
-      users = new Users();
-      while (rs.next()) {
-        users.add(new UserData().withId(rs.getInt("id"))
-                .withUsername(rs.getString("username"))
-                .withEmail("email"));
-      }
-      rs.close();
-      st.close();
-      conn.close();
-
-      System.out.println(users);
-
-    } catch (SQLException ex) {
-      System.out.println("SQLException: " + ex.getMessage());
-      System.out.println("SQLState: " + ex.getSQLState());
-      System.out.println("VendorError: " + ex.getErrorCode());
-    }
-    return users;
+  public Users users() {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<UserData> result = session.createQuery("from UserData").list();
+    session.getTransaction().commit();
+    session.close();
+    return new Users(result);
   }
 }
