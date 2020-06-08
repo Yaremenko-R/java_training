@@ -25,7 +25,7 @@ public class RegistrationHelper extends HelperBase {
   public void resetUserPassword(int id) {
     click(By.linkText("Manage"));
     click(By.linkText("Manage Users"));
-    click(By.cssSelector(String.format("a[manage_user_edit_page.php?user_id=%s']", id)));
+    click(By.xpath(String.format("//a[contains(@href, 'manage_user_edit_page.php?user_id=%s')]", id)));
     click(By.xpath("//input[@value='Reset Password']"));
   }
 
