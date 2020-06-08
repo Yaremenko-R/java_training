@@ -70,11 +70,6 @@ public class JamesHelper {
     readUntil("Password:");
     write(password);
 
-    readUntil("Login id:");
-    write(login);
-    readUntil("Password:");
-    write(password);
-
     readUntil("Welcome " + login + ". HELP for a list of commands");
   }
 
