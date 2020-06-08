@@ -59,6 +59,9 @@ public class UserDeletionFromGroupTests extends TestBase {
 
     app.goTo().homePage();
     app.contact().deleteFromGroup(contactToDel, targetGroup);
+    // Refresh data from DB before assert
+    Users contactsAfter = app.db().users();
+    Groups groupsAfter = app.db().groups();
     Groups contactGroupsAfterDel = contactToDel.getGroups();
     assertThat(contactGroupsAfterDel, not(hasItem(targetGroup)));
   }

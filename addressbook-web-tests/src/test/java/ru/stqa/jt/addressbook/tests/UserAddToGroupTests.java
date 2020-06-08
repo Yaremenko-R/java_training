@@ -49,6 +49,9 @@ public class UserAddToGroupTests extends TestBase {
     }
     app.goTo().homePage();
     app.contact().addToGroup(contactToAdd, targetGroup);
+    // Refresh data from DB before assert
+    Users contactsAfter = app.db().users();
+    Groups groupsAfter = app.db().groups();
     Groups contactGroupsAfterAdd = contactToAdd.getGroups();
     assertThat(contactGroupsAfterAdd, hasItem(targetGroup));
   }
