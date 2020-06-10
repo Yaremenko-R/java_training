@@ -57,12 +57,17 @@ public class UserDeletionFromGroupTests extends TestBase {
       }
     }
 
+    int contactToDelId = contactToDel.getId();
+    int targetGroupId = targetGroup.getId();
+
     app.goTo().homePage();
     app.contact().deleteFromGroup(contactToDel, targetGroup);
     // Refresh data from DB before assert
     Users contactsAfter = app.db().users();
     Groups groupsAfter = app.db().groups();
-    Groups contactGroupsAfterDel = contactToDel.getGroups();
-    assertThat(contactGroupsAfterDel, not(hasItem(targetGroup)));
+    GroupData targetGroupAfter = groupsAfter.iterator().next().withId(targetGroupId);
+    UserData contactToDelAfter = contactsAfter.iterator().next().withId(contactToDelId);
+    Users targetGroupContactsAfter = targetGroupAfter.getContacts();
+    assertThat(targetGroupContactsAfter, not(hasItem(contactToDelAfter)));
   }
 }
