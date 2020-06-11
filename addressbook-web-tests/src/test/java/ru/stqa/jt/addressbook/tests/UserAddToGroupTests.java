@@ -48,17 +48,10 @@ public class UserAddToGroupTests extends TestBase {
       }
     }
 
-    int contactToAddId = contactToAdd.getId();
-    int targetGroupId = targetGroup.getId();
-
     app.goTo().homePage();
     app.contact().addToGroup(contactToAdd, targetGroup);
-    // Refresh data from DB before assert
-    Users contactsAfter = app.db().users();
-    Groups groupsAfter = app.db().groups();
-    GroupData targetGroupAfter = groupsAfter.iterator().next().withId(targetGroupId);
-    UserData contactToAddAfter = contactsAfter.iterator().next().withId(contactToAddId);
-    Users targetGroupContactsAfter = targetGroupAfter.getContacts();
-    assertThat(targetGroupContactsAfter, hasItem(contactToAddAfter));
+    UserData finalContactToAdd = contactToAdd;
+    Groups contactToAddGroupsAfter = app.db().users().stream().filter((c) -> c.equals(finalContactToAdd)).findFirst().get().getGroups();
+    assertThat(contactToAddGroupsAfter, hasItem(targetGroup));
   }
 }
