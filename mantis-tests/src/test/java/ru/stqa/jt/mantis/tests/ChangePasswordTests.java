@@ -26,11 +26,10 @@ public class ChangePasswordTests extends TestBase {
     UserData user = mantisUsers.iterator().next();
     app.registration().adminLogin();
     app.registration().resetUserPassword(user.getId());
-    List<MailMessage> mailMessages = app.mail().waitForMail(3,60000);
+    List<MailMessage> mailMessages = app.mail().waitForMail(1,50000);
     String confirmationLink = app.mail().findConfirmationLink(mailMessages, user.getEmail());
     app.registration().finish(confirmationLink, "password");
-    assertTrue(app.newSession().login(user.toString()));
-    assertTrue(app.newSession().isLoggedInAs(user.toString()));
+    assertTrue(app.newSession().login(user.getUsername()));
   }
 
   @AfterMethod(alwaysRun = true)
