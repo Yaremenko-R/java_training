@@ -20,8 +20,8 @@ public class RegistrationTestsRemote extends TestBase{
     List<Object[]> list = new ArrayList<>();
     long now = System.currentTimeMillis();
     String user = String.format("user%s", now);
-    String password = "pass";
-    String email = String.format("%s@localhost.localdomain", user);
+    String password = "password";
+    String email = String.format("%s@localhost", user);
     list.add(new Object[] {user, password, email});
     return list.iterator();
   }
