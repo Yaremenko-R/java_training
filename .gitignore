@@ -16,3 +16,4 @@ addressbook-web-tests/chromedriver.exe
 addressbook-web-tests/IEDriverServer.exe
 addressbook-web-tests/src/test/resources/sova.jpg
 *.log
+soap-sample/chromedriver.exe
