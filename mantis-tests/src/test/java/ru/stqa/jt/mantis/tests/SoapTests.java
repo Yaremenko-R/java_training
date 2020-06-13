@@ -6,6 +6,7 @@ import ru.stqa.jt.mantis.model.Issue;
 import ru.stqa.jt.mantis.model.Project;
 
 import javax.xml.rpc.ServiceException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Set;
@@ -13,8 +14,9 @@ import java.util.Set;
 public class SoapTests extends TestBase {
 
   @Test
-  public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
-    skipIfNotFixed(0000002);
+  public void testGetProjects() throws IOException, ServiceException {
+    //skipIfNotFixedInMantis(2);
+    skipIfNotFixedInBugify(90);
     Set<Project> projects = app.soap().getProjects();
     System.out.println(projects.size());
     for (Project project : projects) {
@@ -23,8 +25,9 @@ public class SoapTests extends TestBase {
   }
 
   @Test
-  public void testCreateIssue() throws RemoteException, ServiceException, MalformedURLException {
-    skipIfNotFixed(0000001);
+  public void testCreateIssue() throws IOException, ServiceException {
+    //skipIfNotFixedInMantis(1);
+    skipIfNotFixedInBugify(93);
     Set<Project> projects = app.soap().getProjects();
     Issue issue = new Issue().withSummary("Test issue")
             .withDescription("Test issue description").withProject(projects.iterator().next());
