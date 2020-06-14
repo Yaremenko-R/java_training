@@ -54,7 +54,8 @@ public class TestBase {
     String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues/" + issueId + ".json"))
             .returnContent().asString();
     JsonElement parsedIssue = new JsonParser().parse(json);
-    String issueStatus  = parsedIssue.getAsJsonObject().get("state_name").getAsString();
+    String issueStatus  = parsedIssue.getAsJsonObject().get("issues")
+            .getAsJsonArray().get(0).getAsJsonObject().get("state_name").toString().replace("\"", "");
     return !(issueStatus.equals("Resolved") | issueStatus.equals("Closed"));
   }
 
