@@ -12,7 +12,6 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
-addressbook-web-tests/chromedriver.exe
 addressbook-web-tests/IEDriverServer.exe
 addressbook-web-tests/src/test/resources/sova.jpg
 *.log
